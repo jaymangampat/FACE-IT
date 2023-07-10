@@ -32,4 +32,11 @@ ion-menu-button {
     bottom: 0;
     width: 100%;
   }
+  .popover-content {
+    height: 80px; /* Adjust the height as needed */
+    overflow-y: auto;
+  }
+  .icon{
+    font-size:22px;
+  }
   
