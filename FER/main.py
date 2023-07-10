@@ -1,13 +1,15 @@
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 import cv2
+import matplotlib.pyplot as plt
 from deepface import DeepFace
 
 face_classifier = cv2.CascadeClassifier()
 face_classifier.load(cv2.samples.findFile("haarcascade_frontalface_default.xml"))
 
 cap = cv2.VideoCapture(0)
-new_frame = None  # Define new_frame variable before the loop
+emotions_count = {"Happy": 0, "Neutral": 0, "Angry": 0}  # Initialize emotions count dictionary
+desired_emotions = ["happy", "neutral", "angry"]  # Desired emotions to detect
 while True:
     try:
         ret, frame = cap.read()
@@ -20,17 +22,15 @@ while True:
         for face in faces:
             x, y, w, h = face
             emotion_dict = response[0]  # Access the first dictionary in the list
-            dominant_emotion = emotion_dict.get("dominant_emotion", "")
-            if dominant_emotion in ["happy", "angry", "neutral"]:  # Filter desired emotions
-                print("Detected Emotion:", dominant_emotion)  # Print detected emotion in the terminal
-                cv2.putText(frame, text=dominant_emotion, org=(x, y), fontFace=cv2.FONT_HERSHEY_COMPLEX, fontScale=1, color=(0, 255, 0))
-                new_frame = cv2.rectangle(frame, (x, y), (x+w, y+h), color=(255, 0, 0), thickness=2)
+            dominant_emotion = emotion_dict.get("dominant_emotion", "").lower()
+            if dominant_emotion in desired_emotions:  # Check if the emotion is in the desired emotions
+                emotions_count[dominant_emotion.capitalize()] += 1  # Increment the count for the detected emotion
 
-        if new_frame is not None and new_frame.shape[0] > 0 and new_frame.shape[1] > 0:  # Check valid dimensions
-            # Resize the frame to a larger size
-            resized_frame = cv2.resize(new_frame, (800, 600))
-            cv2.imshow("", resized_frame)
-        
+                cv2.putText(frame, text=dominant_emotion.capitalize(), org=(x, y), fontFace=cv2.FONT_HERSHEY_COMPLEX, fontScale=1, color=(0, 255, 0))
+                cv2.rectangle(frame, (x, y), (x+w, y+h), color=(255, 0, 0), thickness=2)
+
+        cv2.imshow("", frame)
+
         if cv2.waitKey(30) == 27:
             break
 
@@ -39,3 +39,13 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
+
+# Create a bar chart for emotions count
+emotions = list(emotions_count.keys())
+count = list(emotions_count.values())
+
+plt.bar(emotions, count)
+plt.xlabel('Emotions')
+plt.ylabel('Count')
+plt.title('Detected Emotions')
+plt.show()
