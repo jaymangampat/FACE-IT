@@ -39,4 +39,33 @@ ion-menu-button {
   .icon{
     font-size:22px;
   }
+  .settings-item {
+    padding: 10px;
+    border-radius: 5px;
+  }
   
+  .settings-icon {
+    color: #ffffff;
+    font-size: 20px;
+  }
+  
+  .settings-label {
+    color: #ffffff;
+  }
+  
+  .video-device-label {
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 10px;
+  }
+  
+  .video-device-item {
+    border-radius: 5px;
+  }
+
+  .video-icon {
+    color: #ffffff;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-right: 10px;
+  }
