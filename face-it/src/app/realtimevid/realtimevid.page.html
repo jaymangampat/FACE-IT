@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Real-Time Video</ion-title>
+    <ion-title>Real-Time Video | FACE-IT</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -18,20 +18,31 @@
     <strong class="capitalize">Real-Time Video</strong>
     <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
   </div>
-  
+
   <ion-footer class="fixed-footer">
     <ion-toolbar>
-      <ion-button id="bottom-start"><ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon></ion-button>
-      <ion-popover trigger="bottom-start" side="top" alignment="start">
+      <ion-buttons id="trigger-button" slot="start">
+        <ion-button class="ellipsis-button">
+          <ion-icon name="ellipsis-vertical"></ion-icon>
+        </ion-button>        
+      </ion-buttons>
+      <ion-buttons id="expand-button" slot="start" title="Go Fullscreen" (click)="toggleFullscreen()">
+        <ion-button class="expand">
+          <ion-icon class="icon" name="expand"></ion-icon>
+        </ion-button>        
+      </ion-buttons>
+      <ion-popover trigger="trigger-button" side="top" alignment="start">
         <ng-template>
-          <ion-content class="ion-padding">Hello World!</ion-content>
+          <ion-content class="popover-content">
+            <ion-list>
+              <ion-item [button]="true">
+                <ion-icon class="icon" name="settings" slot="start"></ion-icon>
+                <ion-label>Settings</ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-content>
         </ng-template>
       </ion-popover>
-      <ion-buttons slot="start">
-        <ion-button>
-          <ion-icon slot="icon-only" name="expand"></ion-icon>
-        </ion-button>
-      </ion-buttons>
     </ion-toolbar>
   </ion-footer>
 </ion-content>
