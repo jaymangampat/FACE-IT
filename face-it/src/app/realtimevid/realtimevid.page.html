@@ -27,9 +27,9 @@
           <ion-icon name="ellipsis-vertical"></ion-icon>
         </ion-button>        
       </ion-buttons>
-      <ion-buttons id="expand-button" slot="start" title="Go Fullscreen" (click)="toggleFullscreen()">
+      <ion-buttons id="expand-button" slot="start" [title]="isFullscreen ? 'Exit Fullscreen' : 'Go Fullscreen'" (click)="toggleFullscreen()">
         <ion-button class="expand">
-          <ion-icon class="icon" name="expand"></ion-icon>
+          <ion-icon class="icon" [name]="isFullscreen ? 'contract' : 'expand'"></ion-icon>
         </ion-button>        
       </ion-buttons>
       <ion-popover trigger="trigger-button" side="top" alignment="start">
