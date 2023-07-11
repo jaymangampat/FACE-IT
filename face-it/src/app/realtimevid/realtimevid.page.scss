@@ -41,7 +41,7 @@ ion-menu-button {
   }
   .settings-item {
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 20px;
   }
   
   .settings-icon {
@@ -57,10 +57,12 @@ ion-menu-button {
     font-weight: bold;
     color: #ffffff;
     margin-bottom: 10px;
+    
   }
   
   .video-device-item {
     border-radius: 5px;
+    margin-bottom: 10px;
   }
 
   .video-icon {
@@ -68,4 +70,8 @@ ion-menu-button {
     font-size: 20px;
     margin-top: 10px;
     margin-right: 10px;
+  }
+  
+  .video-device-select{
+    margin-top: 10px;
   }
