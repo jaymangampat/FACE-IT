@@ -56,6 +56,7 @@ export class RealtimevidPage {
   };
 
   toggleFullscreen() {
+    this.isFullscreen = !this.isFullscreen;
     if (document.fullscreenElement) {
       document
         .exitFullscreen()
