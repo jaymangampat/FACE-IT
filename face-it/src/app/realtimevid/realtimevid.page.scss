@@ -75,3 +75,27 @@ ion-menu-button {
   .video-device-select{
     margin-top: 10px;
   }
+
+  .avatar-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon {
+    margin-right: 8px;
+  }
+  
+  .admin-name {
+    margin-right: 8px;
+  }
+
+  .admin-pos {
+    margin-left: 8px;
+  }
+  
+  .separator {
+    width: 1px;
+    height: 20px;
+    background-color: #747c84;
+    margin: 4px 0;
+  }
