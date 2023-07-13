@@ -117,3 +117,41 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+
+.avatar-container {
+  display: flex;
+  justify-content: flex-start; /* Align to the bottom of the container */
+  margin-top: 640px; /* Push to the bottom */
+  height: 60px;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+}
+
+.admin-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 25px;
+}
+
+.admin-info ion-label,
+.admin-info ion-note {
+  margin-left: 5px;
+}
+
+.admin-info ion-note {
+  font-size: 13px;
+}
+
+.admin-info ion-label {
+  padding-left: 10px;
+  font-weight: bolder;
+}
+
+.popover-content {
+  height: 70px; /* Adjust the height as needed */
+  overflow-y: auto;
+}

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -9,5 +12,11 @@ export class AppComponent {
     { title: 'Dashboard', url: '/dashboard', icon: 'analytics' },
     { title: 'Real-Time Video', url: '/realtimevid', icon: 'videocam' },
   ];
-  constructor() {}
+
+  constructor(private router: Router, private menuController: MenuController) {}
+
+  logout() {
+    this.menuController.close();
+    this.router.navigateByUrl('/login', { replaceUrl: true });
+  }
 }

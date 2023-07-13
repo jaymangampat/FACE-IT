@@ -4,6 +4,16 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Real-Time Video | FACE-IT</ion-title>
+    <ion-buttons slot="end">
+      <ion-chip class="avatar-container" id="popover-button">
+        <ion-avatar class="icon">
+          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        </ion-avatar>
+        <ion-label class="admin-name">Juan A. Dela Cruz</ion-label>
+        <div class="separator"></div>
+        <ion-note class="admin-pos">Administrator</ion-note>
+      </ion-chip>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -26,18 +36,53 @@
           <ion-icon name="ellipsis-vertical"></ion-icon>
         </ion-button>        
       </ion-buttons>
-      <ion-buttons id="expand-button" slot="start" title="Go Fullscreen" (click)="toggleFullscreen()">
+      <ion-buttons id="expand-button" slot="start" [title]="isFullscreen ? 'Exit Fullscreen' : ' Fullscreen'" (click)="toggleFullscreen()">
         <ion-button class="expand">
-          <ion-icon class="icon" name="expand"></ion-icon>
+          <ion-icon class="icon" [name]="isFullscreen ? 'contract' : 'expand'"></ion-icon>
         </ion-button>        
       </ion-buttons>
       <ion-popover trigger="trigger-button" side="top" alignment="start">
         <ng-template>
           <ion-content class="popover-content">
             <ion-list>
-              <ion-item [button]="true">
+              <ion-item [button]="true" id="open-modal">
                 <ion-icon class="icon" name="settings" slot="start"></ion-icon>
                 <ion-label>Settings</ion-label>
+                <ion-modal #modal trigger="open-modal" [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation">
+                  <ng-template>
+                    <ion-header>
+                      <ion-toolbar>
+                        <ion-title>Settings</ion-title>
+                        <ion-buttons slot="end">
+                          <ion-button (click)="closeModal()">
+                            <ion-icon class="icon" name="close"></ion-icon>
+                          </ion-button>
+                        </ion-buttons>
+                      </ion-toolbar>
+                    </ion-header>
+                    <ion-content>
+                      <ion-grid class="modal-grid">
+                        <ion-row class="modal-row">
+                          <ion-col size="5">
+                            <ion-item [button]="true" class="settings-item">
+                              <ion-icon class="icon settings-icon" name="settings-outline" slot="start"></ion-icon>
+                              <ion-label class="settings-label">Device Settings</ion-label>
+                            </ion-item>
+                          </ion-col>
+                          <ion-col size="7">
+                            <ion-label class="video-device-label">Video Device</ion-label>
+                            <ion-item class="video-device-item">
+                              <ion-icon class="icon video-icon" name="videocam-outline" slot="start"></ion-icon>
+                              <ion-select placeholder="Select a device" [(ngModel)]="selectedVideoDevice" class="video-device-select">
+                                <ion-select-option *ngFor="let device of videoDevices" [value]="device.deviceId">{{ device.label }}</ion-select-option>
+                              </ion-select>
+                            </ion-item>
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>
+                    </ion-content>
+                  </ng-template>
+                </ion-modal>
               </ion-item>
             </ion-list>
           </ion-content>

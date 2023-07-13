@@ -12,6 +12,27 @@
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
+
+          <ion-chip class="avatar-container" id="popover-button">
+            <ion-avatar class="icon">
+              <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            </ion-avatar>
+            <div class="admin-info">
+              <ion-label>Juan A. Dela Cruz</ion-label>
+              <ion-note>Administrator</ion-note>
+            </div>
+          </ion-chip>
+          <ion-popover trigger="popover-button" [dismissOnSelect]="true">
+            <ng-template>
+              <ion-content class="popover-content">
+                <ion-list>
+                  <ion-item [button]="true" [detail]="false" (click)="logout()">Sign Out
+                    <ion-icon slot="start" name="exit"></ion-icon>
+                  </ion-item>
+                </ion-list>
+              </ion-content>
+            </ng-template>
+          </ion-popover>
         </ion-list>
       </ion-content>
     </ion-menu>
