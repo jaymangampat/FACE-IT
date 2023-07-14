@@ -1,6 +1,9 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { IonInput } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
+import { AuthenticationService } from '../authentication.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -8,35 +11,37 @@ import { Router } from '@angular/router';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements AfterViewInit {
+export class LoginPage implements AfterViewInit, OnDestroy {
   @ViewChild('passwordInputRef') passwordInputRef!: IonInput;
   showPassword: boolean = true;
-  errorMessage!: string;
+  errorMessage = '';
   isSubmitDisabled = false;
+  loading = false;
+  email = '';
+  password = '';
+  private errorMessageSubscription!: Subscription;
+  
+  constructor(
+    private router: Router,
+    private loadingController: LoadingController,
+    private authenticationService: AuthenticationService,
+  ) {}
 
-  signIn() {
-    const usernameInput = document.getElementById('username') as HTMLInputElement;
-    const passwordInput = document.getElementById('password') as HTMLInputElement;
-
-    const enteredUsername = usernameInput.value;
-    const enteredPassword = passwordInput.value;
-
-    if (enteredUsername === 'username' && enteredPassword === 'password') {
-      this.router.navigateByUrl('/dashboard');
-    } else {
-      this.errorMessage = 'Invalid username or password';
-
-      usernameInput.value = '';
-      passwordInput.value = '';
-    }
-  }
   updateSubmitButtonState() {
-    const username = (<HTMLInputElement>document.getElementById('username')).value;
-    const password = (<HTMLInputElement>document.getElementById('password')).value;
+    const username = (document.getElementById('username') as HTMLInputElement).value;
+    const password = (document.getElementById('password') as HTMLInputElement).value;
     this.isSubmitDisabled = !username || !password;
   }
+
   ngAfterViewInit(): void {
     this.togglePasswordVisibility();
+    this.errorMessageSubscription = this.authenticationService.errorMessage$.subscribe((message) => {
+      this.errorMessage = message;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.errorMessageSubscription.unsubscribe();
   }
 
   async togglePasswordVisibility(): Promise<void> {
@@ -44,7 +49,18 @@ export class LoginPage implements AfterViewInit {
     const passwordInput = await this.passwordInputRef.getInputElement();
     passwordInput.type = this.showPassword ? 'text' : 'password';
   }
-  
-  constructor(private router: Router) {}
 
+  signIn() {
+    this.authenticationService.SignIn(this.email, this.password);
+    this.email = '';
+    this.password = '';
+  }
+
+  signOut() {
+    this.authenticationService.SignOut();
+  }
+
+  signInWithGoogle() {
+    this.authenticationService.SignInWithGoogle();
+  }
 }
