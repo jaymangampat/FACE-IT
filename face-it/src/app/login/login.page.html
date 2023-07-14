@@ -10,12 +10,12 @@
     <form (ngSubmit)="signIn()">
       <ion-item>
         <ion-label position="floating">Username</ion-label>
-        <ion-input id="username" type="text" placeholder="Enter your username"></ion-input>
+        <ion-input [(ngModel)]="email" name="email" id="email" type="text" placeholder="Enter your username"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Password</ion-label>
-        <ion-input #passwordInputRef id="password" type="password" placeholder="Enter your password"></ion-input>
+        <ion-input #passwordInputRef [(ngModel)]="password" name="password" id="password" type="password" placeholder="Enter your password"></ion-input>
         <ion-icon
           [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
           slot="end"
@@ -30,7 +30,7 @@
         <a href="#" class="forgot-password-link">Forgot Password?</a>
       </div>
 
-      <ion-button type="submit" class="login-button">Sign In</ion-button>
+      <ion-button type="submit" class="login-button" id="Login" name="Login">Sign In</ion-button>
 
       <ion-item *ngIf="errorMessage" lines="none" color="danger"class="message">
         <ion-label>{{ errorMessage }}</ion-label>
@@ -45,11 +45,11 @@
     </div>
 
     <div class="social-icons">
+      <a href="https://www.google.com" target="_blank"
+        ><ion-icon name="logo-google" class="social-icon"></ion-icon
+      ></a>
       <a href="https://www.facebook.com" target="_blank"
         ><ion-icon name="logo-facebook" class="social-icon"></ion-icon
-      ></a>
-      <a href="https://www.instagram.com" target="_blank"
-        ><ion-icon name="logo-instagram" class="social-icon"></ion-icon
       ></a>
       <a href="https://www.linkedin.com" target="_blank"
         ><ion-icon name="logo-linkedin" class="social-icon"></ion-icon
