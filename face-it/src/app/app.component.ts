@@ -8,6 +8,19 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+  isNightMode = false;
+
+  toggleNightMode() {
+    this.isNightMode = !this.isNightMode;
+    const appElement = document.querySelector('ion-app');
+    if (appElement) {
+      if (this.isNightMode) {
+        appElement.classList.add('night-mode');
+      } else {
+        appElement.classList.remove('night-mode');
+      }
+    }
+  }
   public appPages = [
     { title: 'Dashboard', url: '/dashboard', icon: 'analytics' },
     { title: 'Real-Time Video', url: '/realtimevid', icon: 'videocam' },
