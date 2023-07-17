@@ -8,6 +8,7 @@ import { AnimationController, ModalController } from '@ionic/angular';
 })
 export class RealtimevidPage {
   isFullscreen = false;
+  isNightMode = false;
   icon: string = 'expand';
   videoDevices: MediaDeviceInfo[] = []; // Array to store the available video devices
   selectedVideoDevice: string = ''; // Variable to store the selected video device
@@ -17,6 +18,10 @@ export class RealtimevidPage {
     private modalController: ModalController
   ) {}
 
+  toggleNightMode() {
+
+  }
+  
   getVideoDevices() {
     navigator.mediaDevices.enumerateDevices().then(devices => {
       this.videoDevices = devices.filter(device => device.kind === 'videoinput');
