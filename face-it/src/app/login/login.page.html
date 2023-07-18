@@ -27,7 +27,44 @@
       </ion-item>
 
       <div class="forgot-password-container">
-        <a href="#" class="forgot-password-link">Forgot Password?</a>
+        <ion-button fill="clear" id="trigger-button" class="forgot-password-link">Forgot Password?</ion-button>
+        <ion-popover trigger="trigger-button" side="top" alignment="start">
+          <ng-template>
+            <ion-content class="popover-content">
+              <ion-list>
+                <ion-item [button]="true" id="open-modal">
+                  <ion-icon class="icon settings-icon" name="reload" slot="start"></ion-icon>
+                  <ion-label>Reset Password</ion-label>
+                  <ion-modal #modal trigger="open-modal">
+                    <ng-template>
+                      <ion-header>
+                        <ion-toolbar>
+                          <ion-title>Password Reset</ion-title>
+                          <ion-buttons slot="end">
+                            <ion-button (click)="closeModal()">
+                              <ion-icon class="icon" name="close"></ion-icon>
+                            </ion-button>
+                          </ion-buttons>
+                        </ion-toolbar>
+                      </ion-header>
+                      <ion-content>
+                        <ion-item>
+                          <ion-input [clearInput]="true" name="email" type="email" placeholder="example@example.com" [(ngModel)]="email" >
+                            <div slot="label">Email <ion-text color="danger">(Required)</ion-text></div>
+                          </ion-input>
+                          <ion-button (click)="resetPassword()">Reset</ion-button>
+                        </ion-item>
+                        <ion-item *ngIf="emailSent" lines="none" color="success" class="message">
+                          <ion-label>Password reset email sent successfully.</ion-label>
+                        </ion-item>
+                      </ion-content>
+                    </ng-template>
+                  </ion-modal>
+                </ion-item>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
       </div>
 
       <ion-button type="submit" class="login-button" id="Login" name="Login">Sign In</ion-button>
@@ -35,7 +72,6 @@
       <ion-item *ngIf="errorMessage" lines="none" color="danger"class="message">
         <ion-label>{{ errorMessage }}</ion-label>
       </ion-item>
-      
     </form>
 
     <div class="divider-line">
