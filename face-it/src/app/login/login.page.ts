@@ -1,10 +1,10 @@
 import { Component, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { IonInput } from '@ionic/angular';
+import { IonInput, ModalController} from '@ionic/angular';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { AuthenticationService } from '../authentication.service';
 import { Subscription } from 'rxjs';
-
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-login',
@@ -20,13 +20,30 @@ export class LoginPage implements AfterViewInit, OnDestroy {
   email = '';
   password = '';
   private errorMessageSubscription!: Subscription;
+  emailSent: boolean = false;
   
   constructor(
     private router: Router,
     private loadingController: LoadingController,
     private authenticationService: AuthenticationService,
-  ) {}
+    private afAuth: AngularFireAuth,
+    private modalController: ModalController
+  ) {
+    console.log("afAuth:", afAuth);
+  }
 
+  async resetPassword() {
+    console.log("Email value:", this.email);
+    try {
+      await this.afAuth.sendPasswordResetEmail(this.email);
+      this.emailSent = true;
+      console.log("Password reset email sent.");
+    } catch (error) {
+      // Handle any errors that occur during the password reset process
+      console.log("Error resetting password:", error);
+    }
+  }
+  
   updateSubmitButtonState() {
     const username = (document.getElementById('username') as HTMLInputElement).value;
     const password = (document.getElementById('password') as HTMLInputElement).value;
@@ -62,5 +79,9 @@ export class LoginPage implements AfterViewInit, OnDestroy {
 
   signInWithGoogle() {
     this.authenticationService.SignInWithGoogle();
+  }
+
+  closeModal() {
+    this.modalController.dismiss();
   }
 }
