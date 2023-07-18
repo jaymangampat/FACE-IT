@@ -93,31 +93,35 @@ ion-menu-button {
     margin: 4px 0;
   }
 
-  .night-mode {
-    --ion-background-color: #1e1e1e;
+  .light-mode {
+    --ion-background-color: #ffffff;
     --ion-color-primary: #1da1f2;
     --ion-color-primary-contrast: #ffffff;
     --ion-color-primary-shade: #1a91da;
     --ion-color-primary-tint: #55b8f9;
-    --ion-color-secondary: #ffffff;
-    --ion-color-secondary-contrast: #000000;
-    --ion-color-secondary-shade: #e0e0e0;
-    --ion-color-secondary-tint: #ffffff;
-    --ion-color-tertiary: #ffffff;
-    --ion-color-tertiary-contrast: #000000;
-    --ion-color-tertiary-shade: #e0e0e0;
-    --ion-color-tertiary-tint: #ffffff;
-    --ion-color-dark: #14171a;
+    --ion-color-secondary: #000000;
+    --ion-color-secondary-contrast: #ffffff;
+    --ion-color-secondary-shade: #333333;
+    --ion-color-secondary-tint: #000000;
+    --ion-color-tertiary: #000000;
+    --ion-color-tertiary-contrast: #ffffff;
+    --ion-color-tertiary-shade: #333333;
+    --ion-color-tertiary-tint: #000000;
+    --ion-color-dark: #ffffff;
     --ion-color-medium: #888888;
     --ion-color-light: #ffffff;
-    --ion-text-color: #ffffff;
+    --ion-text-color: #000000;
 
     ion-label,
-    ion-note, .settings-icon, .settings-label,.video-device-label, .video-icon {
+    ion-note, .settings-icon, .settings-label, .video-icon, ion-toolbar, ion-header, ion-select {
       color: #ffffff;
     }
 
     ion-chip {
       --ion-background-color: #888888;
+    }
+
+    .video-device-label{
+      color:#333333;
     }
   }
